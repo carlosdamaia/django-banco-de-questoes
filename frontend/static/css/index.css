@@ -1,0 +1,224 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    font-family: 'Nunito';
+}
+
+#main {
+
+}
+
+#app {
+    display: block;
+    width: 100%;
+    height: 100%;
+    
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    background-color: #3B2C4A;
+    padding: 1.25rem 0;
+}
+
+.titulo-principal {
+    font-style: italic;
+    font-weight: 500;
+    color: #FFFFFF;
+}
+
+.titulo-secundario {
+    font-style: italic;
+    font-size: 30pt;
+    font-weight: 600;
+    color: #3B2C4A;
+    text-transform: capitalize;
+}
+
+.lista-materias {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.botoes-materias {
+    background-color: inherit;
+    cursor: pointer;
+    width: 100%;
+    border: none;
+    text-align: left;
+    font-size: 24pt;
+    font-style: italic;
+    padding: 1rem 2rem;
+    font-weight: 500;
+    color: rgba(59, 44, 74, 1);
+    transition: .5s;
+}
+
+.botoes-materias:hover {
+    background-color: #D3D3D3;
+}
+
+.lista-materias li {
+
+}
+
+.lista-materias .li-frente {
+    font-size: 20pt;
+    font-style: italic;
+    color: rgba(59, 44, 74, 1);
+    padding: 0.625rem 0 0.625rem 2.188rem;
+    list-style: none;
+    width: 100%;
+    transition: .5s;
+}
+
+.lista-materias .li-frente:hover {
+    background-color: #D3D3D3;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:visited {
+    text-decoration: none;
+    color: inherit;
+}
+
+.lista-frentes-open {
+    flex-direction: column;
+}
+
+.lista-frentes-closed {
+    display: none;
+    overflow: hidden;
+}
+
+.corpo-questao {
+    white-space: pre-line;
+    margin: 1.5rem;
+    padding: 1.5rem;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.numero-criador {
+    margin-bottom: 0.625rem;
+}
+
+.corpo-enunciado {
+    
+}
+
+.questoes-header {
+    display: flex;
+    justify-content: space-between;
+    margin: 1.5rem 3rem 1.5rem 2rem;
+}
+
+.questoes-header-home {
+    display: flex;
+    justify-content: space-between;
+    margin: 1.5rem 3rem 0 2rem;
+}
+
+.corpo-enunciado p {
+    padding: 0.625rem 0 0.625rem 0;
+    
+}
+
+ol {
+    list-style: none;
+}
+
+ol li {
+    margin: 0.625rem 0 0.625rem 0;
+}
+
+ol li .bold {
+    font-weight: 600;
+}
+
+.botoes-acao {
+    text-align: center;
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 1.5rem;
+}
+
+.botoes-acao button {
+    cursor: pointer;
+    width: 150px;
+    padding: 0.625rem 0;
+    border-radius: 0.188rem;
+    background-color: rgba(59, 44, 74, 1);
+    color: white;
+    font-size: 12pt;
+    transition: .2s;
+}
+
+.botoes-acao button:hover {
+    font-style: italic;
+}
+
+.alternativa-correta {
+    padding: 10px;
+    background-color: #CFFFBA;
+    border-radius: 10px;
+    font-style: italic;
+}
+
+.alternativas {
+    font-weight: 600;
+}
+
+.container-pagina-erro {
+    color: #3B2C4A;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    margin: 10rem 1.5rem 0 1.5rem;
+}
+
+.container-pagina-erro h1 {
+    font-size: 30pt;
+}
+
+.botao-voltar {
+    margin-top: 1.5rem;
+}
+
+.botao-voltar a {
+    padding: 0.625rem;
+    cursor: pointer;
+    width: 150px;
+    border-radius: 0.188rem;
+    background-color: rgba(59, 44, 74, 1);
+    color: white;
+    font-size: 12pt;
+    transition: .2s;
+}
+
+.botao-voltar a:hover {
+    font-style: italic;
+}
+
+.personalizado {
+    background-color: yellow;
+}
+
+.personalizado-2 {
+    background-color: red;
+}
+
+
+
+  
