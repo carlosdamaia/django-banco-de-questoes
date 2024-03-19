@@ -15,7 +15,8 @@ from dotenv import load_dotenv
 import os
 import json
 
-with open('/etc/config.json') as config_file:
+#Alter between production and development
+with open('config.json') as config_file:
     config = json.load(config_file)
 
 load_dotenv()
@@ -34,7 +35,7 @@ SECRET_KEY = config['SECRET_KEY']
 DEBUG = True
 
 # SECURITY WARNING: keep this a secret!
-ALLOWED_HOSTS = ['159.112.189.193']
+ALLOWED_HOSTS = []
 
 
 # Application definition
