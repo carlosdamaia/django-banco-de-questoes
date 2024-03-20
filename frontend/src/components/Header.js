@@ -11,7 +11,7 @@ export default class Header extends Component {
         return (
             <div className="header">
                 <h1 className="titulo-principal">
-                    <a href="/">Banco de Questões</a>
+                    <a href="/home">Banco de Questões</a>
                 </h1>
             </div>
         )

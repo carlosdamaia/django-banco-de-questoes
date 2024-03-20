@@ -32,7 +32,7 @@ with open(configjson_file_path) as config_file:
 SECRET_KEY = config['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 # SECURITY WARNING: keep this a secret!
 ALLOWED_HOSTS = config.get('ALLOWED_HOSTS', [])
@@ -60,6 +60,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'questoes.middleware.RedirectMiddleware',
 ]
 
 ROOT_URLCONF = 'questoes.urls'
@@ -82,6 +85,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'questoes.wsgi.application'
 
+LOGIN_URL = '/login/'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -129,7 +133,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_URL = '/static'
+#STATIC URL MUST END WITH A SLASH IN DEVELOPMENT
+STATIC_URL = '/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
