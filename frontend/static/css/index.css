@@ -175,6 +175,20 @@ ol li .bold {
     font-style: italic;
 }
 
+.alternativa-errada {
+    padding: 10px;
+    background-color: red;
+    border-radius: 10px;
+    font-style: italic;
+}
+
+.alternativa-correta-nao-selecionada {
+    padding: 10px;
+    background-color: green;
+    border-radius: 10px;
+    font-style: italic;
+}
+
 .alternativas {
     font-weight: 600;
 }
@@ -219,6 +233,15 @@ ol li .bold {
     background-color: red;
 }
 
+.checkboxes {
+    min-width: 20px;
+    min-height: 20px;
+    vertical-align: middle;
+    margin-right: 10px;
+}
 
+label {
+    vertical-align: middle;
+}
 
   
