@@ -57,4 +57,30 @@ const concluirQuestao = (id, materia, frente) => {
     });
 }
 
-export { buscarQuestao, concluirQuestao, buscarEstatisticas };
+const registrarResposta = (id, materia, frente) => {
+    return fetch(`/api/registrar-acerto/${id}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({}),
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erro ao registrar acerto questão: ' + response.statusText);
+        }
+        return fetch(`/api/listar/${materia.toLowerCase()}-${frente.toLowerCase()}`);
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erro ao registrar acerto questão: ' + response.statusText);
+        }
+        return response.json();
+    })
+    .catch(error => {
+        console.error(error);
+        throw error;
+    });
+}
+
+export { buscarQuestao, concluirQuestao, buscarEstatisticas, registrarResposta };

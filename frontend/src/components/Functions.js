@@ -4,7 +4,7 @@ const toggleMateria = (materia) => (prevState) => {
     return { materiasOpen: newMateriasOpen };
 }
 
-const mostrarResposta = (dados, checkedItems) => {
+const mostrarResposta = (dados, checkedItems, acertou) => {
 
     console.log("Dados recebidos:", dados);
     console.log("Checked items recebidos:", checkedItems);

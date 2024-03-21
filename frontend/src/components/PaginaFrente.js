@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 var Latex = require("react-latex");
 import Header from "./Header";
-import { buscarQuestao, concluirQuestao, buscarEstatisticas } from "./Api";
+import { buscarQuestao, concluirQuestao, buscarEstatisticas, registrarResposta } from "./Api";
 import { mostrarResposta } from "./Functions"
 import Erro from "./Erro";
 import NotFound from "./NotFound";
@@ -30,6 +30,16 @@ export default class PaginaFrente extends Component {
             });
         } else {
             alert("Selecione uma alternativa antes de solicitar as respostas!");
+        }
+
+        const algumComErro = Array.from(document.querySelectorAll("li")).some(li => li.classList.contains("alternativa-errada") || li.classList.contains("alternativa-correta-nao-selecionada"));
+    
+        console.log("Algum com erro:", algumComErro)
+
+        if (algumComErro == false) {
+            registrarResposta(this.state.dados.id, this.state.dados.materia, this.state.dados.frente)
+                .then(() => console.log("Resposta registrada com sucesso!"))
+                .catch(error => console.error("Erro ao registrar resposta:", error));
         }
     };
 

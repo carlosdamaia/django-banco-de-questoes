@@ -15,6 +15,20 @@ import random
 id_questao_anterior = None
 
 #Exclui TODAS as questões
+class SetAcertouView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request, questao_id, format=None):
+        try:
+            questao = Questoes.objects.get(pk=questao_id)
+            questao.acertou = True
+            questao.save()
+            return Response({'message': 'Questão ACERTADA com sucesso'}, status=status.HTTP_200_OK)
+        except Questao.DoesNotExist:
+            return Response({'error': 'Questão não encontrada'}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 class ExcluirQuestaoView(APIView):
     def delete(self, request, format=None):
         try:
