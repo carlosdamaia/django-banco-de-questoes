@@ -37,7 +37,7 @@ const concluirQuestao = (id, materia, frente) => {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({}),
+        body: JSON.stringify({ }),
     })
     .then(response => {
         if (!response.ok) {

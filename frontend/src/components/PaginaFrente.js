@@ -15,6 +15,8 @@ export default class PaginaFrente extends Component {
             error: null,
             mostrarResposta: false,
             checkedItems: {},
+            selectedAlternatives: [],
+            acertou: false
         };
     }
 
@@ -56,6 +58,11 @@ export default class PaginaFrente extends Component {
                 this.setState({ 
                     dados: data
                 });
+                const resetCheckedItems = {};
+                Object.keys(this.state.checkedItems).forEach((key) => {
+                    resetCheckedItems[key] = false;
+                })
+                this.setState({ checkedItems: resetCheckedItems });
                 this.limparRespostasCorretas();
             })
             .catch(error => {
@@ -124,14 +131,20 @@ export default class PaginaFrente extends Component {
     }
 
     handleClickConcluido = () => {
-        this.concluirQuestaoLocal()
-            .then(() => {
-                this.buscarEstatisticasLocal();
-            })
-            .catch(error => {
-                console.error("Erro ao concluir ou buscar estatísticas", error);
-                this.setState({ error: error });
-            })
+        const umSelecionado = Object.values(this.state.checkedItems).some(item => item === true);
+        if (umSelecionado) {
+            this.concluirQuestaoLocal()
+                .then(() => {
+                    this.buscarEstatisticasLocal();
+                })
+                .catch(error => {
+                    console.error("Erro ao concluir ou buscar estatísticas", error);
+                    this.setState({ error: error });
+                })
+        } else {
+            alert("A questão só pode ser concluída após selecionar uma resposta!")
+        }
+        
     }
 
     limparRespostasCorretas = () => {
@@ -152,20 +165,32 @@ export default class PaginaFrente extends Component {
         });
     }
 
+    /*handleCheckboxChange = (event) => {
+        const { name, checked } = event.target;
+        this.setState((prevState) => ({
+            checkedItems: {
+                ...prevState.checkedItems,
+                [name]: checked
+            },
+        }));
+    };*/
+
     handleCheckboxChange = (event) => {
         const { name, checked } = event.target;
         this.setState((prevState) => ({
             checkedItems: {
                 ...prevState.checkedItems,
                 [name]: checked
-            }
-        }), () => {
-            console.log(this.state.checkedItems);
-        });
+            },
+            // Atualiza a lista das alternativas selecionadas
+            selectedAlternatives: checked ? [...prevState.selectedAlternatives, name] : prevState.selectedAlternatives.filter(item => item !== name)
+        }));
     };
 
     render() {
         const { error } = this.state;
+
+        console.log(this.state.dados)
 
         if(!this.state.dados.id) {
             return <NotFound />
@@ -195,94 +220,117 @@ export default class PaginaFrente extends Component {
                         <div className="corpo-alternativas">
                             <ol>
 
-                            {this.state.dados.alt_a && (
-                                <li id="alternativa-1">
-                                    <input
-                                        className="checkboxes"
-                                        type="checkbox"
-                                        id="checkbox-alt-1"
-                                        name="alt_1"
-                                        checked={this.state.checkedItems.alt_1 || false}
-                                        onChange={this.handleCheckboxChange}
-                                    />
-                                <label htmlFor="checkbox-alt-1">
-                                    <span id="alt-1" className="alternativas">{this.state.dados.conta_pontuacao ? "01" : "A"})</span> <Latex>{String(this.state.dados.texto_a)}</Latex>
-                                </label>
-                                </li>
-                            )}
+                                {this.state.dados.texto_a !== "" && (
+                                    <li id="alternativa-1">
+                                        <input
+                                            className="checkboxes"
+                                            type="checkbox"
+                                            id="checkbox-alt-1"
+                                            name="alt_1"
+                                            checked={this.state.checkedItems.alt_1 || false}
+                                            onChange={this.handleCheckboxChange}
+                                        />
+                                    <label htmlFor="checkbox-alt-1">
+                                        <span id="alt-1" className="alternativas">{this.state.dados.conta_pontuacao ? "01" : "A"})</span> <Latex>{String(this.state.dados.texto_a)}</Latex>
+                                    </label>
+                                    </li>
+                                )}
 
-                            {this.state.dados.alt_b && (
-                                <li id="alternativa-2">
-                                    <input
-                                        className="checkboxes"
-                                        type="checkbox"
-                                        id="checkbox-alt-2"
-                                        name="alt_2"
-                                        checked={this.state.checkedItems.alt_2 || false}
-                                        onChange={this.handleCheckboxChange}
-                                    />
-                                <label htmlFor="checkbox-alt-2">
-                                    <span id="alt-2" className="alternativas">{this.state.dados.conta_pontuacao ? "02" : "B"})</span> <Latex>{String(this.state.dados.texto_b)}</Latex>
-                                </label>
-                                </li>
-                            )}
+                                {this.state.dados.texto_b !== "" && (
+                                    <li id="alternativa-2">
+                                        <input
+                                            className="checkboxes"
+                                            type="checkbox"
+                                            id="checkbox-alt-2"
+                                            name="alt_2"
+                                            checked={this.state.checkedItems.alt_2 || false}
+                                            onChange={this.handleCheckboxChange}
+                                        />
+                                    <label htmlFor="checkbox-alt-2">
+                                        <span id="alt-2" className="alternativas">{this.state.dados.conta_pontuacao ? "02" : "B"})</span> <Latex>{String(this.state.dados.texto_b)}</Latex>
+                                    </label>
+                                    </li>
+                                )}
 
-                            {this.state.dados.alt_c && (
-                                <li id="alternativa-3">
-                                    <input
-                                        className="checkboxes"
-                                        type="checkbox"
-                                        id="checkbox-alt-3"
-                                        name="alt_3"
-                                        checked={this.state.checkedItems.alt_3 || false}
-                                        onChange={this.handleCheckboxChange}
-                                    />
-                                <label htmlFor="checkbox-alt-3">
-                                    <span id="alt-3" className="alternativas">{this.state.dados.conta_pontuacao ? "04" : "C"})</span> <Latex>{String(this.state.dados.texto_c)}</Latex>
-                                </label>
-                                </li>
-                            )}
+                                {this.state.dados.texto_c !== "" && (
+                                    <li id="alternativa-3">
+                                        <input
+                                            className="checkboxes"
+                                            type="checkbox"
+                                            id="checkbox-alt-3"
+                                            name="alt_3"
+                                            checked={this.state.checkedItems.alt_3 || false}
+                                            onChange={this.handleCheckboxChange}
+                                        />
+                                    <label htmlFor="checkbox-alt-3">
+                                        <span id="alt-3" className="alternativas">{this.state.dados.conta_pontuacao ? "04" : "C"})</span> <Latex>{String(this.state.dados.texto_c)}</Latex>
+                                    </label>
+                                    </li>
+                                )}
 
-                            {this.state.dados.alt_d && (
-                                <li id="alternativa-4">
-                                    <input
-                                        className="checkboxes"
-                                        type="checkbox"
-                                        id="checkbox-alt-4"
-                                        name="alt_4"
-                                        checked={this.state.checkedItems.alt_4 || false}
-                                        onChange={this.handleCheckboxChange}
-                                    />
-                                <label htmlFor="checkbox-alt-4">
-                                    <span id="alt-4" className="alternativas">{this.state.dados.conta_pontuacao ? "08" : "D"})</span> <Latex>{String(this.state.dados.texto_d)}</Latex>
-                                </label>
-                                </li>
-                            )}
+                                {this.state.dados.texto_d !== "" && (
+                                    <li id="alternativa-4">
+                                        <input
+                                            className="checkboxes"
+                                            type="checkbox"
+                                            id="checkbox-alt-4"
+                                            name="alt_4"
+                                            checked={this.state.checkedItems.alt_4 || false}
+                                            onChange={this.handleCheckboxChange}
+                                        />
+                                    <label htmlFor="checkbox-alt-4">
+                                        <span id="alt-4" className="alternativas">{this.state.dados.conta_pontuacao ? "08" : "D"})</span> <Latex>{String(this.state.dados.texto_d)}</Latex>
+                                    </label>
+                                    </li>
+                                )}
 
+                                {this.state.dados.texto_e !== "" && (
+                                    <li id="alternativa-5">
+                                        <input
+                                            className="checkboxes"
+                                            type="checkbox"
+                                            id="checkbox-alt-5"
+                                            name="alt_5"
+                                            checked={this.state.checkedItems.alt_5 || false}
+                                            onChange={this.handleCheckboxChange}
+                                        />
+                                    <label htmlFor="checkbox-alt-5">
+                                        <span id="alt-5" className="alternativas">{this.state.dados.conta_pontuacao ? "16" : "E"})</span> <Latex>{String(this.state.dados.texto_e)}</Latex>
+                                    </label>
+                                    </li>
+                                )}
 
-                                {/**     
-                                {this.state.dados.alt_a && (
-                                    <li id="alternativa-1"><span id="alt-1" className="alternativas">{this.state.dados.conta_pontuacao ? "01" : "A"})</span> <Latex>{String(this.state.dados.texto_a)}</Latex></li>
+                                {this.state.dados.texto_f !== "" && (
+                                    <li id="alternativa-6">
+                                        <input
+                                            className="checkboxes"
+                                            type="checkbox"
+                                            id="checkbox-alt-6"
+                                            name="alt_6"
+                                            checked={this.state.checkedItems.alt_6 || false}
+                                            onChange={this.handleCheckboxChange}
+                                        />
+                                    <label htmlFor="checkbox-alt-6">
+                                        <span id="alt-6" className="alternativas">{this.state.dados.conta_pontuacao ? "32" : "F"})</span> <Latex>{String(this.state.dados.texto_f)}</Latex>
+                                    </label>
+                                    </li>
                                 )}
-                                {this.state.dados.alt_b && (
-                                    <li id="alternativa-2"><span id="alt-2" className="alternativas">{this.state.dados.conta_pontuacao ? "02" : "B"})</span> <Latex>{String(this.state.dados.texto_b)}</Latex></li>
+
+                                {this.state.dados.texto_g !== "" && (
+                                    <li id="alternativa-7">
+                                        <input
+                                            className="checkboxes"
+                                            type="checkbox"
+                                            id="checkbox-alt-7"
+                                            name="alt_7"
+                                            checked={this.state.checkedItems.alt_7 || false}
+                                            onChange={this.handleCheckboxChange}
+                                        />
+                                    <label htmlFor="checkbox-alt-7">
+                                        <span id="alt-7" className="alternativas">{this.state.dados.conta_pontuacao ? "64" : "G"})</span> <Latex>{String(this.state.dados.texto_g)}</Latex>
+                                    </label>
+                                    </li>
                                 )}
-                                {this.state.dados.alt_c && (
-                                    <li id="alternativa-3"><span id="alt-3" className="alternativas">{this.state.dados.conta_pontuacao ? "04" : "C"})</span> <Latex>{String(this.state.dados.texto_c)}</Latex></li>
-                                )}
-                                {this.state.dados.alt_d && (
-                                    <li id="alternativa-4"><span id="alt-4" className="alternativas">{this.state.dados.conta_pontuacao ? "08" : "D"})</span> <Latex>{String(this.state.dados.texto_d)}</Latex></li>
-                                )}
-                                {this.state.dados.texto_e && (
-                                    <li id="alternativa-5"><span id="alt-5" className="alternativas">{this.state.dados.conta_pontuacao ? "16" : "E"})</span> <Latex>{String(this.state.dados.texto_e)}</Latex></li>
-                                )}
-                                {this.state.dados.texto_f && (
-                                    <li id="alternativa-6"><span id="alt-6" className="alternativas">{this.state.dados.conta_pontuacao ? "32" : "F"})</span> <Latex>{String(this.state.dados.texto_f)}</Latex></li>
-                                )}
-                                {this.state.dados.texto_g && (
-                                    <li id="alternativa-7"><span id="alt-7" className="alternativas">{this.state.dados.conta_pontuacao ? "64" : "G"})</span> <Latex>{String(this.state.dados.texto_g)}</Latex></li>
-                                )}
-                                */}
                             </ol>
                         </div>
                     </div>

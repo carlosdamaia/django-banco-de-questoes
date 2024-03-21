@@ -31,7 +31,7 @@ class Questoes(models.Model):
     concluida = models.BooleanField(default=0, null=False)
     data_conclusao = models.DateTimeField(auto_now_add=True)
     alternativa_usuario = models.CharField(max_length=20, null=True)
-    acertou = models.CharField(max_length=20, null=True)
+    acertou = models.BooleanField(default=0, null=True)
     pontuacao = models.IntegerField(default=0, null=True)
 
     def __str__(self):
