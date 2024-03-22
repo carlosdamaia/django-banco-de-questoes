@@ -84,17 +84,26 @@ class QuestoesForm(forms.ModelForm):
     conta_pontuacao = forms.BooleanField(
         required=False
     )
+    concluida = forms.BooleanField(
+        required=False
+    )
 
     class Meta:
         model = Questoes
-        exclude = ["concluida", "alt_a", "alt_b", "alt_c", 
+        exclude = ["alt_a", "alt_b", "alt_c", 
         "alt_d", "alt_e", "alt_f", "alt_g",
         "alternativa_usuario", "acertou", "pontuacao"
         ]
 
+def UpdateNaoConcluido(modeladmin, request, queryset):
+    queryset.update(concluida=False)
+
+UpdateNaoConcluido.short_description = "Marcar como não concluída(s)"
+
 class QuestoesFormAdmin(admin.ModelAdmin):
     form = QuestoesForm
-    
+    actions = [UpdateNaoConcluido]
+
 admin.site.register(Questoes, QuestoesFormAdmin)
 
 
