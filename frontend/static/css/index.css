@@ -8,15 +8,10 @@ html, body {
     font-family: 'Nunito';
 }
 
-#main {
-
-}
-
 #app {
     display: block;
     width: 100%;
     height: 100%;
-    
 }
 
 .header {
@@ -64,10 +59,6 @@ html, body {
     background-color: #D3D3D3;
 }
 
-.lista-materias li {
-
-}
-
 .lista-materias .li-frente {
     font-size: 20pt;
     font-style: italic;
@@ -113,10 +104,6 @@ a:visited {
     margin-bottom: 0.625rem;
 }
 
-.corpo-enunciado {
-    
-}
-
 .questoes-header {
     display: flex;
     justify-content: space-between;
@@ -131,7 +118,6 @@ a:visited {
 
 .corpo-enunciado p {
     padding: 0.625rem 0 0.625rem 0;
-    
 }
 
 ol {
@@ -157,11 +143,12 @@ ol li .bold {
     cursor: pointer;
     width: 150px;
     padding: 0.625rem 0;
-    border-radius: 0.188rem;
+    border-radius: 5rem;
     background-color: rgba(59, 44, 74, 1);
     color: white;
     font-size: 12pt;
     transition: .2s;
+    border: none;
 }
 
 .botoes-acao button:hover {
@@ -173,18 +160,19 @@ ol li .bold {
     background-color: #CFFFBA;
     border-radius: 10px;
     font-style: italic;
+    border: 2px solid;
 }
 
 .alternativa-errada {
     padding: 10px;
-    background-color: red;
+    background-color: #ff1500;
     border-radius: 10px;
     font-style: italic;
 }
 
 .alternativa-correta-nao-selecionada {
     padding: 10px;
-    background-color: green;
+    background-color: #08FE00;
     border-radius: 10px;
     font-style: italic;
 }
@@ -225,14 +213,6 @@ ol li .bold {
     font-style: italic;
 }
 
-.personalizado {
-    background-color: yellow;
-}
-
-.personalizado-2 {
-    background-color: red;
-}
-
 .checkboxes {
     min-width: 20px;
     min-height: 20px;
@@ -242,6 +222,20 @@ ol li .bold {
 
 label {
     vertical-align: middle;
+}
+
+@media screen and (max-width: 465px) {
+    .botoes-acao button {
+        width: 100px;
+    }
+
+    .titulo-secundario {
+        font-size: 22pt
+    }
+
+    .botoes-materias {
+        font-size: 22pt
+    }
 }
 
   

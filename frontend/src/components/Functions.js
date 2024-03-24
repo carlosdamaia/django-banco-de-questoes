@@ -6,9 +6,6 @@ const toggleMateria = (materia) => (prevState) => {
 
 const mostrarResposta = (dados, checkedItems, acertou) => {
 
-    console.log("Dados recebidos:", dados);
-    console.log("Checked items recebidos:", checkedItems);
-
     if (!dados || !dados.alt_correta) {
         console.error("DADOS INVÁLIDOS!");
         return;
@@ -29,14 +26,10 @@ const mostrarResposta = (dados, checkedItems, acertou) => {
 
     todasAsAlternativas.forEach((alt) => {
         const alternativa = document.getElementById(`alternativa-${alt}`);
-        console.log("ALT", alt)
         if (alternativa) {
             const isChecked = checkedItems[`alt_${alt}`];;
             const isCorreta = alternativasCorretas.includes(alt);
             
-            console.log(`isChecked: ${isChecked}, isCorreta: ${isCorreta}`);
-            console.log("Alternativa:", alternativa)
-
             if (isCorreta && isChecked) {
                 alternativa.classList.add("alternativa-correta");
             } else if (!isCorreta && isChecked) {

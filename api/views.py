@@ -103,14 +103,10 @@ class ApresentaQuestaoView(APIView):
             if not questoes.exists():
                 return Response({'error': 'Não há questões disponíveis que não tenham sido apresentadas anteriormente'}, status=status.HTTP_404_NOT_FOUND)
 
-            print("id_questao_anterior antes de executar:", self.id_questao_anterior)
-
             questao_aleatoria = random.choice(questoes)
             self.set_id_questao_anterior(questao_aleatoria.id)
 
             serializer = self.serializer_class(questao_aleatoria)
-
-            print("id_questao_anterior:", self.id_questao_anterior)
 
             return Response(serializer.data)
         except Exception as e:

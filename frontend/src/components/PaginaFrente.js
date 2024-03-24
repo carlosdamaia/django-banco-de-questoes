@@ -3,7 +3,6 @@ var Latex = require("react-latex");
 import Header from "./Header";
 import { buscarQuestao, concluirQuestao, buscarEstatisticas, registrarResposta } from "./Api";
 import { mostrarResposta } from "./Functions"
-import Erro from "./Erro";
 import NotFound from "./NotFound";
 
 export default class PaginaFrente extends Component {
@@ -32,9 +31,7 @@ export default class PaginaFrente extends Component {
             alert("Selecione uma alternativa antes de solicitar as respostas!");
         }
 
-        const algumComErro = Array.from(document.querySelectorAll("li")).some(li => li.classList.contains("alternativa-errada") || li.classList.contains("alternativa-correta-nao-selecionada"));
-    
-        console.log("Algum com erro:", algumComErro)
+        const algumComErro = Array.from(document.querySelectorAll("li")).some(li => li.classList.contains("alternativa-errada") || li.classList.contains("alternativa-correta-nao-selecionada")); 
 
         if (algumComErro == false) {
             registrarResposta(this.state.dados.id, this.state.dados.materia, this.state.dados.frente)
@@ -128,14 +125,11 @@ export default class PaginaFrente extends Component {
         if (questoes_total - questoes_concluidas == 1) {
             alert("Não existe mais questões para pular nesta frente!")
         }
-
         const resetCheckedItems = {};
         Object.keys(this.state.checkedItems).forEach((key) => {
             resetCheckedItems[key] = false;
         })
         this.setState({ checkedItems: resetCheckedItems });
-
-
         this.carregarQuestao();
         this.limparRespostasCorretas();
     }
@@ -175,16 +169,6 @@ export default class PaginaFrente extends Component {
         });
     }
 
-    /*handleCheckboxChange = (event) => {
-        const { name, checked } = event.target;
-        this.setState((prevState) => ({
-            checkedItems: {
-                ...prevState.checkedItems,
-                [name]: checked
-            },
-        }));
-    };*/
-
     handleCheckboxChange = (event) => {
         const { name, checked } = event.target;
         this.setState((prevState) => ({
@@ -192,7 +176,6 @@ export default class PaginaFrente extends Component {
                 ...prevState.checkedItems,
                 [name]: checked
             },
-            // Atualiza a lista das alternativas selecionadas
             selectedAlternatives: checked ? [...prevState.selectedAlternatives, name] : prevState.selectedAlternatives.filter(item => item !== name)
         }));
     };
@@ -200,14 +183,8 @@ export default class PaginaFrente extends Component {
     render() {
         const { error } = this.state;
 
-        console.log(this.state.dados)
-
-        if(!this.state.dados.id) {
+        if(!this.state.dados.id || error) {
             return <NotFound />
-        }
-
-        if (error) {
-            return <Erro />
         }
 
         return (
@@ -229,7 +206,6 @@ export default class PaginaFrente extends Component {
                         </div>
                         <div className="corpo-alternativas">
                             <ol>
-
                                 {this.state.dados.texto_a !== "" && (
                                     <li id="alternativa-1">
                                         <input
@@ -245,7 +221,6 @@ export default class PaginaFrente extends Component {
                                     </label>
                                     </li>
                                 )}
-
                                 {this.state.dados.texto_b !== "" && (
                                     <li id="alternativa-2">
                                         <input
@@ -261,7 +236,6 @@ export default class PaginaFrente extends Component {
                                     </label>
                                     </li>
                                 )}
-
                                 {this.state.dados.texto_c !== "" && (
                                     <li id="alternativa-3">
                                         <input
@@ -277,7 +251,6 @@ export default class PaginaFrente extends Component {
                                     </label>
                                     </li>
                                 )}
-
                                 {this.state.dados.texto_d !== "" && (
                                     <li id="alternativa-4">
                                         <input
@@ -293,7 +266,6 @@ export default class PaginaFrente extends Component {
                                     </label>
                                     </li>
                                 )}
-
                                 {this.state.dados.texto_e !== "" && (
                                     <li id="alternativa-5">
                                         <input
@@ -309,7 +281,6 @@ export default class PaginaFrente extends Component {
                                     </label>
                                     </li>
                                 )}
-
                                 {this.state.dados.texto_f !== "" && (
                                     <li id="alternativa-6">
                                         <input
@@ -325,7 +296,6 @@ export default class PaginaFrente extends Component {
                                     </label>
                                     </li>
                                 )}
-
                                 {this.state.dados.texto_g !== "" && (
                                     <li id="alternativa-7">
                                         <input
@@ -347,11 +317,11 @@ export default class PaginaFrente extends Component {
                 </div>
 
                 <div className="botoes-acao">
-                    <button onClick={() => this.mostrarResposta()/*() => mostrarResposta(this.state.dados)*/}>
-                        Mostrar resposta
+                    <button onClick={() => this.mostrarResposta()}>
+                        Responder
                     </button>
                     <button onClick={this.handleClickConcluido}>
-                        Concluído
+                        Concluir
                     </button>
                     <button onClick={this.handleClickPular}>
                         Pular
