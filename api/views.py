@@ -9,6 +9,7 @@ from rest_framework.permissions import AllowAny
 from django.utils.decorators import method_decorator
 from rest_framework.decorators import permission_classes
 import random
+from django.utils import timezone
 
 # Create your views here.
 
@@ -78,9 +79,10 @@ class ConcluirQuestaoView(APIView):
         try:
             questao = Questoes.objects.get(pk=questao_id)
             questao.concluida = True
+            questao.data_conclusao = timezone.now()
             questao.save()
             return Response({'message': 'Questão concluída com sucesso'}, status=status.HTTP_200_OK)
-        except Questao.DoesNotExist:
+        except questao.DoesNotExist:
             return Response({'error': 'Questão não encontrada'}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
