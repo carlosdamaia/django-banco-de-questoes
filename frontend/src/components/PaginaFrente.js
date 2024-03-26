@@ -30,9 +30,7 @@ export default class PaginaFrente extends Component {
         } else {
             alert("Selecione uma alternativa antes de solicitar as respostas!");
         }
-
         const algumComErro = Array.from(document.querySelectorAll("li")).some(li => li.classList.contains("alternativa-errada") || li.classList.contains("alternativa-correta-nao-selecionada")); 
-
         if (algumComErro == false) {
             registrarResposta(this.state.dados.id, this.state.dados.materia, this.state.dados.frente)
                 .then(() => console.log("Resposta registrada com sucesso!"))
@@ -319,7 +317,7 @@ export default class PaginaFrente extends Component {
 
                 <div className="botoes-acao">
                     <button onClick={() => this.mostrarResposta()}>
-                        Responder
+                        Resposta
                     </button>
                     <button onClick={this.handleClickConcluido}>
                         Concluir

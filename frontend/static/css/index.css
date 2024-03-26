@@ -149,10 +149,14 @@ ol li .bold {
     font-size: 12pt;
     transition: .2s;
     border: none;
+    font-weight: 600;
+    border: 1px solid black;
 }
 
 .botoes-acao button:hover {
-    font-style: italic;
+    background-color: #FFFFFF;
+    color: rgba(59, 44, 74, 1);
+    
 }
 
 .alternativa-correta {
@@ -235,6 +239,11 @@ label {
 
     .botoes-materias {
         font-size: 22pt
+    }
+
+    .botoes-acao button {
+        background-color: rgba(59, 44, 74, 1);;
+        color: #FFFFFF;
     }
 }
 
