@@ -113,7 +113,6 @@ export default class PaginaFrente extends Component {
                     throw new Error('Nenhuma questão encontrada ao pular uma questão');
                 }
                 this.setState({ dados: data, error: null});
-                console.log(this.state.dados)
             })
             .catch((error) => {
                 console.error('Erro ao buscar NOVA questão ao pular questão', error);
@@ -188,9 +187,7 @@ export default class PaginaFrente extends Component {
     };
 
     render() {
-        console.log(this.state.dados.imagem)
         const { error } = this.state;
-
         if(!this.state.dados.id || error) {
             return <NotFound />
         }
