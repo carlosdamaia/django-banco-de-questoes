@@ -67,7 +67,10 @@ export default class PaginaFrente extends Component {
                 Object.keys(this.state.checkedItems).forEach((key) => {
                     resetCheckedItems[key] = false;
                 })
-                this.setState({ checkedItems: resetCheckedItems });
+                this.setState({ 
+                    checkedItems: resetCheckedItems,
+                    mostrarResposta: false,
+                });
                 this.limparRespostasCorretas();
             })
             .catch(error => {
@@ -128,7 +131,10 @@ export default class PaginaFrente extends Component {
         Object.keys(this.state.checkedItems).forEach((key) => {
             resetCheckedItems[key] = false;
         })
-        this.setState({ checkedItems: resetCheckedItems });
+        this.setState({ 
+            checkedItems: resetCheckedItems,
+            mostrarResposta: false,
+        });
         this.carregarQuestao();
         this.limparRespostasCorretas();
     }
@@ -170,13 +176,15 @@ export default class PaginaFrente extends Component {
 
     handleCheckboxChange = (event) => {
         const { name, checked } = event.target;
-        this.setState((prevState) => ({
-            checkedItems: {
-                ...prevState.checkedItems,
-                [name]: checked
-            },
-            selectedAlternatives: checked ? [...prevState.selectedAlternatives, name] : prevState.selectedAlternatives.filter(item => item !== name)
-        }));
+        if (!this.state.mostrarResposta) {
+            this.setState((prevState) => ({
+                checkedItems: {
+                    ...prevState.checkedItems,
+                    [name]: checked
+                },
+                selectedAlternatives: checked ? [...prevState.selectedAlternatives, name] : prevState.selectedAlternatives.filter(item => item !== name)
+            }));
+        }
     };
 
     render() {
