@@ -10,7 +10,7 @@ class Questoes(models.Model):
     numero = models.IntegerField(default=0, null=False)
     criador = models.CharField(max_length=15, null=True)
     enunciado = models.TextField(null=False)
-    imagem = models.CharField(max_length=200, default='N/A', null=True)
+    imagem = models.ImageField(null=True, blank=True, upload_to="images/")
     alt_a = models.CharField(default='1',max_length=2,  null=False)
     texto_a = models.TextField(default='Texto da alternativa A', null=False)
     alt_b = models.CharField(default='2',max_length=2,  null=False)

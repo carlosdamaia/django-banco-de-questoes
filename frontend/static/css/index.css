@@ -228,6 +228,15 @@ label {
     vertical-align: middle;
 }
 
+.div-imagem {
+    margin-top: 0.625rem;
+}
+
+.imagem-enunciado {
+    max-width: 100%;
+    border: 1px solid black;
+}
+
 @media screen and (max-width: 465px) {
     .botoes-acao button {
         width: 100px;

@@ -188,6 +188,7 @@ export default class PaginaFrente extends Component {
     };
 
     render() {
+        console.log(this.state.dados.imagem)
         const { error } = this.state;
 
         if(!this.state.dados.id || error) {
@@ -210,6 +211,11 @@ export default class PaginaFrente extends Component {
                             <Latex>
                                 {String(this.state.dados.enunciado)}
                             </Latex>
+                            {this.state.dados.imagem && (
+                                <div className="div-imagem">
+                                    <img className="imagem-enunciado" src={this.state.dados.imagem} />
+                                </div>
+                            )}
                         </div>
                         <div className="corpo-alternativas">
                             <ol>
