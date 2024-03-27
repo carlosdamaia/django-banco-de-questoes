@@ -40,8 +40,7 @@ export default class PaginaFrente extends Component {
 
     buscarEstatisticasLocal = () => {
         const materia = this.state.dados.materia
-        const frente = this.state.dados.frente
-        const url_estatisticas = `/api/estatisticas-frente/${materia.toLowerCase()}/${frente.toLowerCase()}`
+        const url_estatisticas = `/api/estatisticas-frente/${materia.toLowerCase()}`
         buscarEstatisticas(url_estatisticas)
             .then(data => {
                 this.setState(prevState => ({
@@ -80,9 +79,9 @@ export default class PaginaFrente extends Component {
     }
 
     componentDidMount() {
-        const { materia, frente, error } = this.props;
-        const url = `/api/listar/${materia.toLowerCase()}-${frente.toLowerCase()}`;
-        const url_estatisticas = `/api/estatisticas-frente/${materia.toLowerCase()}/${frente.toLowerCase()}`
+        const { materia, error } = this.props;
+        const url = `/api/listar/${materia.toLowerCase()}`;
+        const url_estatisticas = `/api/estatisticas-frente/${materia.toLowerCase()}`
         buscarEstatisticas(url_estatisticas)
             .then((data) => {
                 this.setState({ estatisticas: data })
@@ -98,9 +97,9 @@ export default class PaginaFrente extends Component {
     }
 
     carregarQuestao = () => {
-        const { materia, frente } = this.props;
-        const url = `/api/listar/${materia.toLowerCase()}-${frente.toLowerCase()}`;
-        const url_estatisticas = `/api/estatisticas-frente/${materia.toLowerCase()}/${frente.toLowerCase()}`
+        const { materia } = this.props;
+        const url = `/api/listar/${materia.toLowerCase()}`;
+        const url_estatisticas = `/api/estatisticas-frente/${materia.toLowerCase()}`
         buscarEstatisticas(url_estatisticas)
             .then(data => {
             this.setState(prevState => ({

@@ -95,9 +95,9 @@ class ApresentaQuestaoView(APIView):
     def set_id_questao_anterior(cls, id_questao):
         cls.id_questao_anterior = id_questao
 
-    def get(self, request, materia, frente, format=None):
+    def get(self, request, materia, format=None):
         try:
-            questoes = Questoes.objects.filter(materia=materia, frente=frente, concluida=0)
+            questoes = Questoes.objects.filter(materia=materia, concluida=0)
             
             if questoes.count() > 1:
                 questoes = questoes.exclude(id=self.id_questao_anterior)
@@ -138,10 +138,10 @@ class MostraRespostaView(APIView):
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class EstatisticasQuestoesView(APIView):
-    def get(self, request, materia, frente, format=None):
+    def get(self, request, materia, format=None):
         try:
-            questoes_total = Questoes.objects.filter(materia=materia, frente=frente).count()
-            questoues_concluidas = Questoes.objects.filter(materia=materia, frente=frente, concluida=True).count()
+            questoes_total = Questoes.objects.filter(materia=materia).count()
+            questoues_concluidas = Questoes.objects.filter(materia=materia, concluida=True).count()
 
             data = {
                 'questoes_total': questoes_total,

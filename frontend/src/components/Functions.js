@@ -1,9 +1,3 @@
-const toggleMateria = (materia) => (prevState) => {
-    const newMateriasOpen = { ...prevState.materiasOpen }; 
-    newMateriasOpen[materia] = !newMateriasOpen[materia];
-    return { materiasOpen: newMateriasOpen };
-}
-
 const mostrarResposta = (dados, checkedItems, acertou) => {
 
     if (!dados || !dados.alt_correta) {
@@ -41,4 +35,4 @@ const mostrarResposta = (dados, checkedItems, acertou) => {
     });
 };
 
-export { toggleMateria, mostrarResposta };
+export { mostrarResposta };

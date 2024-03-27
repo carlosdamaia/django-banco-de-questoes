@@ -43,7 +43,7 @@ const concluirQuestao = (id, materia, frente) => {
         if (!response.ok) {
             throw new Error('Erro ao concluir questão: ' + response.statusText);
         }
-        return fetch(`/api/listar/${materia.toLowerCase()}-${frente.toLowerCase()}`);
+        return fetch(`/api/listar/${materia.toLowerCase()}`);
     })
     .then(response => {
         if (!response.ok) {
@@ -57,7 +57,7 @@ const concluirQuestao = (id, materia, frente) => {
     });
 }
 
-const registrarResposta = (id, materia, frente) => {
+const registrarResposta = (id, materia) => {
     return fetch(`/api/registrar-acerto/${id}`, {
         method: 'POST',
         headers: {
@@ -69,7 +69,7 @@ const registrarResposta = (id, materia, frente) => {
         if (!response.ok) {
             throw new Error('Erro ao registrar acerto questão: ' + response.statusText);
         }
-        return fetch(`/api/listar/${materia.toLowerCase()}-${frente.toLowerCase()}`);
+        return fetch(`/api/listar/${materia.toLowerCase()}`);
     })
     .then(response => {
         if (!response.ok) {

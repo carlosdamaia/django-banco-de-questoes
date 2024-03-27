@@ -83,15 +83,6 @@ a:visited {
     color: inherit;
 }
 
-.lista-frentes-open {
-    flex-direction: column;
-}
-
-.lista-frentes-closed {
-    display: none;
-    overflow: hidden;
-}
-
 .corpo-questao {
     white-space: pre-line;
     margin: 1.5rem;
