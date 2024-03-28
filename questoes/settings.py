@@ -32,10 +32,10 @@ with open(configjson_file_path) as config_file:
 SECRET_KEY = config['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # SECURITY WARNING: keep this a secret!
-ALLOWED_HOSTS = config.get('ALLOWED_HOSTS', [])
+ALLOWED_HOSTS = config['ALLOWED_HOSTS']
 
 
 # Application definition
